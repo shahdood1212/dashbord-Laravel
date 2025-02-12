@@ -28,8 +28,8 @@
             <div class="col-md-2 sidebar">
                 <div class="text-center mb-4">
                 <img src="{{ asset('images/avatar.jpg') }}" class="rounded-circle" width="80" alt="User Avatar">
-                <h5 class="mt-2">Shahd Abohemed</h5>
-                    <small>shahd304428@gmail.com</small>
+                <h5 class="mt-2">Ibrahim Gamal</h5>
+                    <small>krem.01063274122@gmail.com</small>
                 </div>
                 <ul class="nav flex-column">
                     <li class="nav-item">
@@ -41,9 +41,9 @@
                         <a class="nav-link" href="#">
                             <i class="fas fa-plus me-2"></i> Category
                         </a>
-                    </li><li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-plus me-2"></i> Author
+                    </li> <li class="nav-item">
+                        <a class="nav-link" href="{{ route('authors.index') }}">
+                            <i class="fas fa-users me-2"></i> Author
                         </a>
                     </li><li class="nav-item">
                         <a class="nav-link" href="#">

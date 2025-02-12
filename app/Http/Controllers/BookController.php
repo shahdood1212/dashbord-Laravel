@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Http\Requests\BookRequest;
+use App\Models\Author;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
     public function index()
     {
-        $books = Book::all();
+        $books = Book::with('author')->get(); // استرجاع الكتب مع مؤلفيها
         return view('books.index', compact('books'));
     }
 
@@ -19,36 +19,52 @@ class BookController extends Controller
         $totalBooks = Book::count();
         $totalPrice = Book::sum('price');
         $averagePrice = Book::avg('price');
-        $books = Book::all();
+        $books = Book::with('author')->get(); // استرجاع الكتب مع مؤلفيها
 
         return view('dashboard', compact('totalBooks', 'totalPrice', 'averagePrice', 'books'));
     }
 
     public function create()
     {
-        return view('books.create');
+        $authors = Author::all(); // استرجاع جميع المؤلفين لربط الكتاب بأحدهم
+        return view('books.create', compact('authors'));
     }
 
-    public function store(BookRequest $request) // Using BookRequest for validation
+    public function store(Request $request)
     {
-        Book::create($request->validated());
+        $request->validate([
+            'title' => 'required',
+            'pages' => 'required|integer',
+            'price' => 'required|numeric',
+            'author_id' => 'required|exists:authors,id', // التحقق من وجود author_id
+        ]);
+
+        Book::create($request->all());
         return redirect()->route('books.index')->with('success', 'Book added successfully!');
     }
 
     public function show($id)
     {
-        $book = Book::findOrFail($id);
+        $book = Book::with('author')->findOrFail($id); // استرجاع الكتاب مع مؤلفه
         return view('books.show', compact('book'));
     }
 
     public function edit(Book $book)
     {
-        return view('books.edit', compact('book'));
+        $authors = Author::all(); // استرجاع جميع المؤلفين لربط الكتاب بأحدهم
+        return view('books.edit', compact('book', 'authors'));
     }
 
-    public function update(BookRequest $request, Book $book) // Using BookRequest for validation
+    public function update(Request $request, Book $book)
     {
-        $book->update($request->validated());
+        $request->validate([
+            'title' => 'required',
+            'pages' => 'required|integer',
+            'price' => 'required|numeric',
+            'author_id' => 'required|exists:authors,id', // التحقق من وجود author_id
+        ]);
+
+        $book->update($request->all());
         return redirect()->route('books.index')->with('success', 'Book updated successfully!');
     }
 
