@@ -21,6 +21,16 @@
             <label class="form-label">Price</label>
             <input type="text" name="price" class="form-control" required>
         </div>
+        <div class="mb-3">
+            <label class="form-label">Student</label>
+            <select name="student_id" >
+                @foreach ( $students as $student )
+                <option value="{{ $student->id }}"> {{ $student -> name }}</option>
+                
+                @endforeach
+
+            </select>
+        </div>
         <button type="submit" class="btn btn-success">Add Book</button>
         <a href="{{ route('books.index') }}" class="btn btn-secondary">Back</a>
     </form>

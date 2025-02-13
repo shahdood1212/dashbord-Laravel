@@ -27,6 +27,10 @@
                 <td>${{ number_format($book->price, 2) }}</td>
             </tr>
             <tr>
+                <th>Student ID</th>
+                <td>{{ $book->student_id }}</td>
+            </tr>
+            <tr>
                 <th>Created At</th>
                 <td>{{ $book->created_at->format('Y-m-d H:i') }}</td>
             </tr>

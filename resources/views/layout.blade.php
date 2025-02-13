@@ -46,7 +46,7 @@
                             <i class="fas fa-plus me-2"></i> Author
                         </a>
                     </li><li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{ route('students.index') }}">
                             <i class="fas fa-plus me-2"></i> Student
                         </a>
                     </li>
