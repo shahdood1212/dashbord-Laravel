@@ -12,7 +12,7 @@
     color: white !important;
 }
 .btn-custom:hover {
-    background-color: #0d1656 !important; /* لون أغمق عند التمرير */
+    background-color: #0d1656 !important; 
 }
 
 #darkModeToggle:hover {

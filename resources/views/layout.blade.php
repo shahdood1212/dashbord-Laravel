@@ -16,7 +16,11 @@
 
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-           
+        <form method="POST" action="{{ route('logout') }}">
+    @csrf
+    <button type="submit" class="btn btn-danger">Logout</button>
+</form>
+
         <button class="btn" id="darkModeToggle">
     <i class="fas fa-moon"></i>
 </button>
@@ -26,12 +30,18 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2 sidebar">
-                <div class="text-center mb-4">
-                <img src="{{ asset('images/avatar.jpg') }}" class="rounded-circle" width="80" alt="User Avatar">
-                <h5 class="mt-2">Shahd Abohemed</h5>
-                    <small>shahd304428@gmail.com</small>
-                </div>
-                <ul class="nav flex-column">
+            <div class="text-center mb-4">
+    <img src="{{ asset('images/avatar.jpg') }}" class="rounded-circle" width="80" alt="User Avatar">
+    
+    @auth
+        <h5 class="mt-2">{{ Auth::user()->name }}</h5>
+        <small>{{ Auth::user()->email }}</small>
+    @else
+        <h5 class="mt-2">Guest</h5>
+        <small>guest@example.com</small>
+    @endauth
+</div>
+ <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ route('books.index') }}">
                             <i class="fas fa-home me-2"></i> Home

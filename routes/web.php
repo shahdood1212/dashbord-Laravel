@@ -1,10 +1,19 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 
-Route::resource('books', BookController::class);
+Route::get('/', function () {
+    return redirect()->route('login.form');
+});
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/dashboard', [BookController::class, 'dashboard'])->name('dashboard');
-Route::get('/books', [BookController::class, 'index'])->name('books.index');
-Route::get('/prices', [BookController::class, 'prices'])->name('books.prices');
-Route::get('/average-price', [BookController::class, 'averagePrice'])->name('books.averagePrice');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [BookController::class, 'dashboard'])->name('dashboard');
+    Route::resource('books', BookController::class);
+});
